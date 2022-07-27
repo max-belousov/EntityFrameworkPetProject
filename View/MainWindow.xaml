@@ -1,0 +1,54 @@
+﻿<Window x:Class="EntityFraemworkPetProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EntityFraemworkPetProject"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="MainGridView"
+                  IsSynchronizedWithCurrentItem="True"
+                  SelectionMode="Single" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="False"
+                  ItemsSource="{Binding Customers}"
+                  SelectedItem="{Binding SelectedCustomer}" CanUserAddRows="False" CanUserDeleteRows="False"
+        >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Id" 
+                                    Binding="{Binding Id}" 
+                                    Header="Id" 
+                                    IsReadOnly="True"/>
+
+                <DataGridTextColumn x:Name="FirstName" 
+                                    Binding="{Binding FirstName}" 
+                                    Header="Имя Клиента"/>
+
+                <DataGridTextColumn x:Name="SecondName" 
+                                    Binding="{Binding SecondName}" 
+                                    Header="Фамилия Клиента"/>
+
+                <DataGridTextColumn x:Name="ThirdName" 
+                                    Binding="{Binding ThirdName}" 
+                                    Header="Отчество клиента"/>
+
+                <DataGridTextColumn x:Name="Phone" 
+                                    Binding="{Binding Phone}" 
+                                    Header="Телефон"/>
+
+                <DataGridTextColumn x:Name="Email" 
+                                    Binding="{Binding Email}" 
+                                    Header="Email"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить" Click="MenuItemAddClick"/>
+                    <MenuItem Header="Заказы" Click="MenuItemOrdersClick"/>
+                    <MenuItem Header="Удалить" Click="MenuItemDeleteClick"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</Window>
