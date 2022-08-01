@@ -22,7 +22,7 @@
         </Style>
 
     </Window.Resources>
-    <Grid ShowGridLines="True" DataContext="{Binding Orders}">
+    <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="0"/>
             <RowDefinition Height="*"/>
@@ -41,8 +41,8 @@
         <TextBox Grid.Row="1" Style="{StaticResource TextBoxStyle}" x:Name="txtItemName"/>
         <TextBox Grid.Row="2" Style="{StaticResource TextBoxStyle}" x:Name="txtItemCode"/>
 
-        <Button Content="Добавить" Grid.Column="0" Grid.Row="3" Margin="5" FontSize="20" x:Name="okBtn" Click="okButton" />
-        <Button Content="Отмена" Grid.Column="1" Grid.Row="3" Margin="5" FontSize="20" x:Name="cancelBtn" Click="cancelButton"/>
+        <Button Content="Добавить" Grid.Column="0" Grid.Row="3" Margin="5" FontSize="20" x:Name="okBtn" Command="{Binding OkButtonCommand}" />
+        <Button Content="Отмена" Grid.Column="1" Grid.Row="3" Margin="5" FontSize="20" x:Name="cancelBtn" Command="{Binding CancelButtonCommand}"/>
 
     </Grid>
 </Window>
