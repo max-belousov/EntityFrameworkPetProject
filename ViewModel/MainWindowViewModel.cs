@@ -16,8 +16,7 @@ namespace EntityFraemworkPetProject.ViewModel
         {
             Customers = new ObservableCollection<Customer>();
             Database = new MSSQLOnlineShopdbEntities();
-            Database.Customer.Load();
-            Customers = Database.Customer.Local;
+            DatabaseLoading();
         }
 
         public Customer SelectedCustomer
@@ -39,7 +38,12 @@ namespace EntityFraemworkPetProject.ViewModel
         public ObservableCollection<Customer> Customers { get; set; }
 
         public MSSQLOnlineShopdbEntities Database { get; set; }
-        
+
+        private void DatabaseLoading()
+        {
+            Database.Customer.Load();
+            Customers = Database.Customer.Local;
+        }
         public RelayCommand MenuItemAdd
         {
             get

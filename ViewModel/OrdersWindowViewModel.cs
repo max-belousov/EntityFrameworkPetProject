@@ -19,8 +19,7 @@ namespace EntityFraemworkPetProject.ViewModel
             Orders = new ObservableCollection<Orders>();
             Database = new MSSQLOnlineShopdbEntities();
             _key = key;
-            Database.Orders.Where(o => o.Email == _key).Load();
-            Orders = Database.Orders.Local;
+            DatabaseLoading();
         }
         public Orders SelectedOrders
         {
@@ -41,6 +40,11 @@ namespace EntityFraemworkPetProject.ViewModel
         public ObservableCollection<Orders> Orders { get; set; }
 
         public static MSSQLOnlineShopdbEntities? Database { get; set; }
+        private void DatabaseLoading()
+        {
+            Database.Orders.Where(o => o.Email == _key).Load();
+            Orders = Database.Orders.Local;
+        }
 
         public RelayCommand OrderAdd
         {
