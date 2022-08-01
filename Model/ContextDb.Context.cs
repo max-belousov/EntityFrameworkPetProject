@@ -7,7 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace EntityFraemworkPetProject.Model
 {
@@ -39,10 +41,11 @@ namespace EntityFraemworkPetProject.Model
 
         public void DeleteCustomer(Customer selectedCustomer)
         {
-            DialogResult dialogResult = MessageBox.Show($"Точно хотите удалить {selectedCustomer.Email}?", "Удаление клиента", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult dialogResult = MessageBox.Show($"Точно хотите удалить {selectedCustomer.Email} и все его заказы?", "Удаление клиента", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialogResult == DialogResult.Yes)
             {
                 this.Customer.Remove(selectedCustomer);
+                this.Orders.RemoveRange(this.Orders.Where(o => o.Email == selectedCustomer.Email));
                 this.SaveChanges();
             }
         }
