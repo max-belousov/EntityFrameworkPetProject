@@ -9,14 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using EntityFraemworkPetProject.Command;
 using EntityFraemworkPetProject.Model;
 using EntityFraemworkPetProject.View;
 
 namespace EntityFraemworkPetProject.ViewModel
 {
-    internal class MainWindowViewModel : INotifyPropertyChanged
+    internal class MainWindowViewModel : BaseViewModel
     {
         private Customer _selectedCustomer;
+        private RelayCommand _menuItemAdd;
+        private RelayCommand _menuItemOrders;
+        private RelayCommand _menuItemDelete;
         public MainWindowViewModel()
         {
             Customers = new ObservableCollection<Customer>();
@@ -45,31 +49,41 @@ namespace EntityFraemworkPetProject.ViewModel
         public ObservableCollection<Customer> Customers { get; set; }
 
         public MSSQLOnlineShopdbEntities Database { get; set; }
-
-        public void MenuItemAddClick()
+        
+        public RelayCommand MenuItemAdd
         {
-            var addCustomerView = new AddCustomerView();
-            addCustomerView.ShowDialog();
-            if (!addCustomerView.AddCustomerVM.Result) return;
-            Database.AddCustomer(addCustomerView.AddCustomerVM.Customer);
+            get
+            {
+                return _menuItemAdd ??= new RelayCommand(obj =>
+                {
+                    var addCustomerView = new AddCustomerView();
+                    addCustomerView.ShowDialog();
+                    if (!addCustomerView.AddCustomerVM.Result) return;
+                    Database.AddCustomer(addCustomerView.AddCustomerVM.Customer);
+                });
+            }
         }
-        public void MenuItemOrdersClick()
+        public RelayCommand MenuItemOrders
         {
-            var orderView = new OrdersWindow(SelectedCustomer.Email);
-            orderView.ShowDialog();
+            get
+            {
+                return _menuItemOrders ??= new RelayCommand(obj =>
+                {
+                    var orderView = new OrdersWindow(SelectedCustomer.Email);
+                    orderView.ShowDialog();
+                });
+            }
+        }
+        public RelayCommand MenuItemDelete
+        {
+            get
+            {
+                return _menuItemDelete ??= new RelayCommand(obj =>
+                {
+                    if (SelectedCustomer != null) Database.DeleteCustomer(SelectedCustomer);
+                });
+            }
         }
 
-        public void MenuItemDeleteClick()
-        {
-            if (SelectedCustomer != null) Database.DeleteCustomer(SelectedCustomer);
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
     }
 }

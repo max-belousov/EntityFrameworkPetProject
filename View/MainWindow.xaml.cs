@@ -23,31 +23,10 @@ namespace EntityFraemworkPetProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly MainWindowViewModel _mainWindowViewModel;
-
         public MainWindow()
         {
             InitializeComponent();
-            _mainWindowViewModel = new MainWindowViewModel();
-            DataContext = _mainWindowViewModel;
-            //OrdersGridView
+            DataContext = new MainWindowViewModel();
         }
-
-        private void MenuItemAddClick(object sender, RoutedEventArgs e)
-        {
-            _mainWindowViewModel.MenuItemAddClick();
-        }
-
-        private void MenuItemOrdersClick(object sender, RoutedEventArgs e)
-        {
-            _mainWindowViewModel.MenuItemOrdersClick();
-        }
-
-        private void MenuItemDeleteClick(object sender, RoutedEventArgs e)
-        {
-            _mainWindowViewModel.MenuItemDeleteClick();
-        }
-
-
     }
 }

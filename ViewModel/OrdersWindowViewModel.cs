@@ -9,15 +9,20 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using EntityFraemworkPetProject.Command;
 using EntityFraemworkPetProject.Model;
 using EntityFraemworkPetProject.View;
 
 namespace EntityFraemworkPetProject.ViewModel
 {
-    internal class OrdersWindowViewModel : INotifyPropertyChanged
+    internal class OrdersWindowViewModel : BaseViewModel
     {
         private Orders _selectedOrders;
-        private readonly string _key;
+        private static string _key;
+        private RelayCommand _addCommand;
+        private RelayCommand _deleteCommand;
+
         public OrdersWindowViewModel(string key)
         {
             Orders = new ObservableCollection<Orders>();
@@ -36,8 +41,7 @@ namespace EntityFraemworkPetProject.ViewModel
                 OnPropertyChanged("SelectedOrders");
                 if (_selectedOrders != null)
                 {
-                    var c = Database.Orders.Find(_selectedOrders.Id);
-                    c = value;
+                    Database.Orders.Find(_selectedOrders.Id);
                     Database.SaveChanges();
                 }
             }
@@ -45,27 +49,30 @@ namespace EntityFraemworkPetProject.ViewModel
 
         public ObservableCollection<Orders> Orders { get; set; }
 
-        public MSSQLOnlineShopdbEntities Database { get; set; }
+        public static MSSQLOnlineShopdbEntities Database { get; set; }
 
-        public void OrderAddClick()
+        public RelayCommand OrderAdd
         {
-            var addOrderView = new AddOrderView(_key);
-            addOrderView.ShowDialog();
-            if (!addOrderView.AddOrderVM.Result) return;
-            Database.AddOrder(addOrderView.AddOrderVM.Orders);
+            get
+            {
+                return _addCommand ??= new RelayCommand(obj =>
+                {
+                    var addOrderView = new AddOrderView(_key);
+                    addOrderView.ShowDialog();
+                    if (!addOrderView.AddOrderVM.Result) return;
+                    Database.AddOrder(addOrderView.AddOrderVM.Orders);
+                });
+            }
         }
-
-        public void OrderDeleteClick()
+        public RelayCommand OrderDelete
         {
-            if (SelectedOrders != null) Database.DeleteOrder(SelectedOrders);
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            get
+            {
+                return _deleteCommand ??= new RelayCommand(obj =>
+                {
+                    if (SelectedOrders != null) Database.DeleteOrder(SelectedOrders);
+                });
+            }
         }
     }
 }

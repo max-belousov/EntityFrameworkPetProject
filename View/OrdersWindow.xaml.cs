@@ -21,27 +21,11 @@ namespace EntityFraemworkPetProject.View
     /// </summary>
     public partial class OrdersWindow : Window
     {
-        private readonly OrdersWindowViewModel _viewModel;
+        //private readonly OrdersWindowViewModel _viewModel;
         public OrdersWindow(string key)
         {
             InitializeComponent();
-            _viewModel = new OrdersWindowViewModel(key);
-            OrdersGridView.DataContext = _viewModel;
-            //var e = OrdersGridView.ItemsSource;
-            //var c = _viewModel.Orders.ToBindingList();
-            //OrdersGridView.ItemsSource = _viewModel.Orders.ToBindingList();
-            //OrdersGridView.SelectedItem = _viewModel.SelectedOrders;
-        }
-
-
-        private void OrderDeleteClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.OrderDeleteClick();
-        }
-
-        private void OrderAddClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.OrderAddClick();
+            DataContext = new OrdersWindowViewModel(key);
         }
     }
 }

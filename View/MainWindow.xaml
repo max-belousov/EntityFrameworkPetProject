@@ -44,9 +44,9 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Добавить" Click="MenuItemAddClick"/>
-                    <MenuItem Header="Заказы" Click="MenuItemOrdersClick"/>
-                    <MenuItem Header="Удалить" Click="MenuItemDeleteClick"/>
+                    <MenuItem Header="Добавить" Command="{Binding MenuItemAdd}"/>
+                    <MenuItem Header="Заказы" Command="{Binding MenuItemOrders}"/>
+                        <MenuItem Header="Удалить" Command="{Binding MenuItemDelete}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

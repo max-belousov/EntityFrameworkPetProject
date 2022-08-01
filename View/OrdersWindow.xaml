@@ -36,8 +36,8 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Добавить" Click="OrderAddClick"/>
-                    <MenuItem Header="Удалить" Click="OrderDeleteClick"/>
+                <MenuItem Header="Добавить" Command="{Binding OrderAdd}"/>
+                <MenuItem Header="Удалить" Command="{Binding OrderDelete}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
 

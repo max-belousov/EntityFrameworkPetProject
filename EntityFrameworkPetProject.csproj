@@ -70,6 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Model\ContextDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -92,6 +93,7 @@
       <DependentUpon>ContextDb.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddOrdersViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\OrdersWindowViewModel.cs" />
     <Compile Include="View\AddOrderView.xaml.cs">
       <DependentUpon>AddOrderView.xaml</DependentUpon>
