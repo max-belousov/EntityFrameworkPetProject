@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using EntityFraemworkPetProject.Command;
 using EntityFraemworkPetProject.Model;
 using EntityFraemworkPetProject.View;
@@ -13,19 +7,17 @@ namespace EntityFraemworkPetProject.ViewModel
 {
     public class AddOrdersViewModel : BaseViewModel
     {
-        private RelayCommand _okButtonCommand;
-        private RelayCommand _cancelButtonCommand;
-        public AddOrdersViewModel(string key, AddOrderView window)
+        private RelayCommand _okButtonCommand = null!;
+        private RelayCommand _cancelButtonCommand = null!;
+        public AddOrdersViewModel(string? key, AddOrderView window)
         {
             Key = key;
             Window = window;
-            Database = new MSSQLOnlineShopdbEntities();
         }
-        public MSSQLOnlineShopdbEntities Database { get; set; }
-        public string Key { get; set; }
+        public string? Key { get; set; }
 
         public AddOrderView Window { get; set; }
-        public Orders Orders  { get; set; }
+        public Orders Orders  { get; set; } = null!;
         public bool Result { get; set; }
         public RelayCommand OkButtonCommand
         {

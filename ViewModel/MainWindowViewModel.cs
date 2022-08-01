@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using EntityFraemworkPetProject.Command;
 using EntityFraemworkPetProject.Model;
 using EntityFraemworkPetProject.View;
@@ -17,10 +8,10 @@ namespace EntityFraemworkPetProject.ViewModel
 {
     internal class MainWindowViewModel : BaseViewModel
     {
-        private Customer _selectedCustomer;
-        private RelayCommand _menuItemAdd;
-        private RelayCommand _menuItemOrders;
-        private RelayCommand _menuItemDelete;
+        private Customer _selectedCustomer = null!;
+        private RelayCommand _menuItemAdd = null!;
+        private RelayCommand _menuItemOrders = null!;
+        private RelayCommand _menuItemDelete = null!;
         public MainWindowViewModel()
         {
             Customers = new ObservableCollection<Customer>();
@@ -36,11 +27,10 @@ namespace EntityFraemworkPetProject.ViewModel
             set
             {
                 this._selectedCustomer = value;
-                OnPropertyChanged("SelectedCustomer");
+                OnPropertyChanged();
                 if (_selectedCustomer != null)
                 {
-                    var c = Database.Customer.Find(_selectedCustomer.Id);
-                    c = value;
+                    Database.Customer.Find(_selectedCustomer.Id);
                     Database.SaveChanges();
                 }
             }

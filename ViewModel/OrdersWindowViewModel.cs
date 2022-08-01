@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 using EntityFraemworkPetProject.Command;
 using EntityFraemworkPetProject.Model;
 using EntityFraemworkPetProject.View;
@@ -18,12 +9,12 @@ namespace EntityFraemworkPetProject.ViewModel
 {
     internal class OrdersWindowViewModel : BaseViewModel
     {
-        private Orders _selectedOrders;
-        private static string _key;
-        private RelayCommand _addCommand;
-        private RelayCommand _deleteCommand;
+        private Orders _selectedOrders = null!;
+        private static string? _key;
+        private RelayCommand _addCommand = null!;
+        private RelayCommand _deleteCommand = null!;
 
-        public OrdersWindowViewModel(string key)
+        public OrdersWindowViewModel(string? key)
         {
             Orders = new ObservableCollection<Orders>();
             Database = new MSSQLOnlineShopdbEntities();
@@ -38,18 +29,18 @@ namespace EntityFraemworkPetProject.ViewModel
             set
             {
                 this._selectedOrders = value;
-                OnPropertyChanged("SelectedOrders");
+                OnPropertyChanged();
                 if (_selectedOrders != null)
                 {
-                    Database.Orders.Find(_selectedOrders.Id);
-                    Database.SaveChanges();
+                    Database?.Orders.Find(_selectedOrders.Id);
+                    Database?.SaveChanges();
                 }
             }
         }
 
         public ObservableCollection<Orders> Orders { get; set; }
 
-        public static MSSQLOnlineShopdbEntities Database { get; set; }
+        public static MSSQLOnlineShopdbEntities? Database { get; set; }
 
         public RelayCommand OrderAdd
         {
@@ -70,7 +61,7 @@ namespace EntityFraemworkPetProject.ViewModel
             {
                 return _deleteCommand ??= new RelayCommand(obj =>
                 {
-                    if (SelectedOrders != null) Database.DeleteOrder(SelectedOrders);
+                    if (SelectedOrders != null) Database?.DeleteOrder(SelectedOrders);
                 });
             }
         }
